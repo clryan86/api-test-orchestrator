@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero compact"><p class="eyebrow">Test run #{{ run.id }}</p><h1>{{ run.suite_name }}</h1><p class="lead">{{ run.passed }}/{{ run.total }} cases passed • {{ '%.1f'|format(run.duration_ms) }} ms</p></section>
+<section class="panel"><h2>Cases</h2>{% for case in run.result.cases %}<div class="case"><div><strong>{{ case.name }}</strong><p>{{ case.method }} {{ case.url }} • {{ case.status_code }} • {{ case.elapsed_ms }} ms</p></div><span class="pill {% if case.passed %}good{% else %}bad{% endif %}">{% if case.passed %}PASS{% else %}FAIL{% endif %}</span></div>{% for assertion in case.assertions %}<div class="assertion"><span>{{ assertion.type }}</span><span>{{ assertion.actual }}</span><strong>{% if assertion.passed %}✓{% else %}✗{% endif %}</strong></div>{% endfor %}{% endfor %}</section>
+{% endblock %}

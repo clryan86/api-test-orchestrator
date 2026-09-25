@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      DATABASE_PATH: /app/data/runs.db
+      TIMEOUT_SECONDS: 10
+    volumes:
+      - test_history:/app/data
+volumes:
+  test_history:

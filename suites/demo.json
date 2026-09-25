@@ -1,0 +1,29 @@
+{
+  "name": "Users API Contract",
+  "base_url": "https://api.example.test",
+  "variables": {"expected_name": "Aisha"},
+  "cases": [
+    {
+      "name": "Create user",
+      "method": "POST",
+      "path": "/users",
+      "json": {"name": "{{expected_name}}"},
+      "assertions": [
+        {"type": "status", "value": 201},
+        {"type": "json_equals", "path": "name", "value": "Aisha"},
+        {"type": "json_exists", "path": "id"},
+        {"type": "response_time_ms", "value": 1000}
+      ],
+      "extract": {"user_id": "id"}
+    },
+    {
+      "name": "Read created user",
+      "method": "GET",
+      "path": "/users/{{user_id}}",
+      "assertions": [
+        {"type": "status", "value": 200},
+        {"type": "json_equals", "path": "name", "value": "Aisha"}
+      ]
+    }
+  ]
+}
